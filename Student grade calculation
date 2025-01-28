@@ -1,0 +1,80 @@
+import java.util.Scanner;
+
+class Student {
+    private String name;
+    private int[] marks;
+    private int totalMarks;
+    private double averagePercentage;
+    private String grade;
+
+    // Constructor to initialize student name and number of subjects
+    public Student(String name, int numberOfSubjects) {
+        this.name = name;
+        this.marks = new int[numberOfSubjects];
+    }
+
+    // Method to input marks
+    public void inputMarks() {
+        Scanner s = new Scanner(System.in);
+        for (int i = 0; i < marks.length; i++) {
+            System.out.print("Enter marks for subject " + (i + 1) + ": ");
+            marks[i] = s.nextInt();
+        }
+    }
+
+    // Method to calculate total marks and average percentage
+    public void calculateResults() {
+        for (int mark : marks) {
+            totalMarks += mark;
+        }
+        averagePercentage = (double) totalMarks / marks.length;
+        grade = calculateGrade(averagePercentage);
+    }
+
+    // Method to calculate grade based on average percentage
+    private String calculateGrade(double averagePercentage) {
+        if (averagePercentage >= 90) {
+            return "A+";
+        } else if (averagePercentage >= 80) {
+            return "A";
+        } else if (averagePercentage >= 70) {
+            return "B";
+        } else if (averagePercentage >= 60) {
+            return "C";
+        } else if (averagePercentage >= 50) {
+            return "D";
+        } else {
+            return "F";
+        }
+    }
+
+    // Method to display results
+    public void displayResults() {
+        System.out.println("Student Name: " + name);
+        System.out.println("Total Marks: " + totalMarks);
+        System.out.printf("Average Percentage: %.2f%%\n", averagePercentage);
+        System.out.println("Grade: " + grade);
+    }
+}
+
+public class StudentGrades {
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+
+        // Input student name and number of subjects
+        System.out.print("Enter student name: ");
+        String studentName = s.nextLine();
+        System.out.print("Enter number of subjects: ");
+        int numberOfSubjects = s.nextInt();
+
+        // Create a Student object
+        Student student = new Student(studentName, numberOfSubjects);
+
+        // Input marks, calculate results, and display them
+        student.inputMarks();
+        student.calculateResults();
+        student.displayResults();
+
+        s.close();
+    }
+}
